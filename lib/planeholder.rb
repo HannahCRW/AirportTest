@@ -39,6 +39,6 @@ class Airport
 	end
 end
 
-# class Flying
-# 	include Planeholder
-# end
+class Sky
+	include Planeholder
+end

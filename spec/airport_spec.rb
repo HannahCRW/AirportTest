@@ -2,12 +2,19 @@ require_relative "../lib/plane.rb"
 require_relative "../lib/planeholder.rb"
 require_relative "../lib/weather.rb"
 
+
 describe Plane do
 	let(:plane) { Plane.new }
-	it "should be able to fly" do
-		expect(plane.fly).to be_true
+
+	it "should be able to take off" do 
+		expect(plane.take_off).to be_true
+	end
+
+	it "should be able to land" do
+		expect(plane.land).to be_true
 	end
 end
+
 
 describe Airport do
 
@@ -35,6 +42,19 @@ describe Airport do
 		expect(lambda {airport.contain_plane(plane) }).to raise_error(RuntimeError)
 	end
 end
+
+describe Sky do
+
+	let(:plane) { Plane.new }
+	let(:sky) { Sky.new }
+
+	it "should allow planes to be in it" do
+		expect(sky.plane_count).to eq(0)
+		sky.contain_plane(plane)
+		expect(sky.plane_count).to eq(1)
+	end
+end
+
 
 describe Weather do # ???
 
