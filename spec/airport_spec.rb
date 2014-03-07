@@ -1,5 +1,5 @@
 require_relative "../lib/plane.rb"
-require_relative "../lib/airport.rb"
+require_relative "../lib/planeholder.rb"
 require_relative "../lib/weather.rb"
 
 describe Plane do
@@ -16,7 +16,7 @@ describe Airport do
 
 	it "should store planes" do
 		expect(airport.plane_count).to eq(0)
-		airport.store_plane(plane)
+		airport.contain_plane(plane)
 		expect(airport.plane_count).to eq(1)
 	end
 end
@@ -30,10 +30,16 @@ describe Weather do # ???
 		it "should prevent planes from taking off" do
 			#
 		end
+		it "should prevent planes from landing" do
+			#
+		end
 	end
 
 	context "calm " do
 		it "should allow planes to take off" do
+			#
+		end
+		it "should allow planes to land" do
 			#
 		end
 	end
