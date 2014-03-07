@@ -7,9 +7,32 @@ describe Plane do
 	end
 end
 
-describe AirPort do
+describe Airport do
+
 	let(:plane) { Plane.new }
-	it "should " do
-		#
+	let(:airport) { Airport.new }
+
+	it "should store planes" do
+		expect(airport.plane_count).to eq(0)
+		airport.store_plane(plane)
+		expect(airport.plane_count).to eq(1)
+	end
+end
+
+describe Weather do # ???
+
+	let(:plane) { Plane.new }
+	let(:airport) { Airport.new }
+
+	context "storm " do
+		it "should prevent planes from taking off" do
+			#
+		end
+	end
+
+	context "calm " do
+		it "should allow planes to take off" do
+			#
+		end
 	end
 end
