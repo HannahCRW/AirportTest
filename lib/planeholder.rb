@@ -2,6 +2,14 @@ module Planeholder
 
 	DEFAULT_CAPACITY = 25
 
+	def capacity
+		@capacity ||= DEFAULT_CAPACITY
+	end
+
+	def capacity=(value)
+		@capacity = value
+	end
+
 	def initialize(options = [])
 		@airport
 	end
@@ -11,11 +19,16 @@ module Planeholder
 	end
 
 	def contain_plane(plane)
+		raise "Airport is full" if full?
 		planes << plane
 	end
 
 	def plane_count
 		planes.count
+	end
+
+	def full?
+		plane_count == capacity
 	end
 end
 
@@ -26,6 +39,6 @@ class Airport
 	end
 end
 
-# class Sky
+# class Flying
 # 	include Planeholder
 # end
