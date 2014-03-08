@@ -1,3 +1,5 @@
+require_relative "./plane"
+
 module Planeholder
 
 	DEFAULT_CAPACITY = 25
@@ -10,9 +12,8 @@ module Planeholder
 		@planes ||= []
 	end
 
-	def contain_plane(plane)
-		raise "Airport is full" if full?
-		planes << plane
+	def plane
+		@plane
 	end
 
 	def remove_plane(plane)
@@ -27,7 +28,7 @@ module Planeholder
 		plane_count == capacity
 	end
 
-	def empty?
+	def empty
 		plane_count == 0
 	end
 end

@@ -6,7 +6,10 @@ module Weather
 	end
 end
 
-class WeatherEffect
+class Planes
+
+# weather effect
+
 	def initialize
 	end
 end	
