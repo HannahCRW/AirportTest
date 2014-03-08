@@ -1,12 +1,9 @@
+require_relative "weather"
+
 class Plane
+	include Weather
+
 	def initialize
-	end
-
-	def take_off
-		true
-	end
-
-	def land
-		true
+		@flying
 	end
 end

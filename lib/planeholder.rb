@@ -6,14 +6,6 @@ module Planeholder
 		@capacity ||= DEFAULT_CAPACITY
 	end
 
-	def capacity=(value)
-		@capacity = value
-	end
-
-	def initialize(options = [])
-		@airport
-	end
-
 	def planes
 		@planes ||= []
 	end
@@ -23,6 +15,10 @@ module Planeholder
 		planes << plane
 	end
 
+	def remove_plane(plane)
+		planes.delete(plane)
+	end
+
 	def plane_count
 		planes.count
 	end
@@ -30,15 +26,18 @@ module Planeholder
 	def full?
 		plane_count == capacity
 	end
-end
 
-
-class Airport
-	include Planeholder
-	def initialize
+	def empty?
+		plane_count == 0
 	end
-end
 
-class Sky
-	include Planeholder
+	def take_off_to(sky)
+		raise "Too stormy - plane cannot take off" if stormy?
+		planes.delete(plane)
+	end
+
+	def land(airport)
+		raise "Too stormy - plane cannot land" if stormy?
+		planes << plane
+	end
 end
