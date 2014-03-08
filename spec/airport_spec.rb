@@ -5,6 +5,7 @@ require "../lib/airport"
 require "../lib/sky"
 
 
+
 describe Planes do
 
 	let(:plane) { Plane.new }

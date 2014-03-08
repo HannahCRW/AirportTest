@@ -11,9 +11,8 @@ class Plane
 	end
 
 	def take_off_to(sky)
-		airport = Airport.new 
 		raise "Too stormy - plane cannot take off" if stormy?
-		raise "No planes available" if airport.empty
+		raise "No planes available" if empty
 		remove_plane(plane)
 	end
 

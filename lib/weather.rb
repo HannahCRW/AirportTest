@@ -1,14 +1,14 @@
 module Weather
-	def weather_number; rand(100); end
+		def weather_number; rand(100); end
 
-	def stormy?
-		weather_number >= 80
+		def stormy?
+			weather_number >= 80
+		end
 	end
-end
+
 
 class Planes
-
-# weather effect
+	# weather effect
 
 	def initialize
 	end
