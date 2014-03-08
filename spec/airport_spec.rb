@@ -1,8 +1,8 @@
-require "plane"
-require "planeholder"
-require "weather"
-require "airport"
-require "sky"
+require "../lib/plane"
+require "../lib/planeholder"
+require "../lib/weather"
+require "../lib/airport"
+require "../lib/sky"
 
 
 describe Plane do
@@ -49,9 +49,9 @@ describe Airport do
 	let(:airport) { Airport.new }
 	let(:sky) { Sky.new }
 
-		def fill_airport(airport)
+	def fill_airport(airport)
 		25.times { airport.contain_plane(Plane.new) }
-		end
+	end
 
 	it "should store planes" do
 		expect(airport.plane_count).to eq(0)
@@ -60,9 +60,10 @@ describe Airport do
 	end
 
 	it "should remove planes from store when they take off" do
+		plane.stub(:stormy? => false)
 		airport.contain_plane(plane)
 		expect(airport.plane_count).to eq(1)
-		planeholder.take_off_to(sky)
+		plane.take_off_to(sky)
 		expect(airport.plane_count).to eq(0)
 	end
 

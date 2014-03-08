@@ -9,4 +9,4 @@ end
 class WeatherEffect
 	def initialize
 	end
-end
+end	

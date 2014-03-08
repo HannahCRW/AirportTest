@@ -30,14 +30,4 @@ module Planeholder
 	def empty?
 		plane_count == 0
 	end
-
-	def take_off_to(sky)
-		raise "Too stormy - plane cannot take off" if stormy?
-		planes.delete(plane)
-	end
-
-	def land(airport)
-		raise "Too stormy - plane cannot land" if stormy?
-		planes << plane
-	end
 end

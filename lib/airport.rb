@@ -1,5 +1,5 @@
 
-require_relative "planeholder"
+require_relative "./planeholder"
 
 class Airport
 	DEFAULT_CAPACITY = 25
