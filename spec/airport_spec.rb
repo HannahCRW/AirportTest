@@ -1,9 +1,8 @@
-require "../lib/plane"
-require "../lib/planeholder"
-require "../lib/weather"
-require "../lib/airport"
-require "../lib/sky"
-
+require_relative "../lib/plane"
+require_relative "../lib/planeholder"
+require_relative "../lib/weather"
+require_relative "../lib/airport"
+require_relative "../lib/sky"
 
 
 describe Planes do
@@ -13,30 +12,37 @@ describe Planes do
 	let(:airport) { Airport.new }
 
 	def fill_airport(airport)
-		plane.stub(:stormy? => false)
-		25.times { plane.land(airport) }
+		25.times { airport.planes << plane }
 	end
 
-	it "should be able to take off" do 
+	def fill_sky(sky)
+		25.times { sky.planes << plane }
+	end
+
+	it "should be able to take off" do
+		plane.stub(:stormy? => false)
 		fill_airport(airport)
-		plane.take_off_to(sky)
-		expect(lambda {plane.take_off_to(sky)}).not_to raise_error
+		expect(lambda {plane.move_plane(sky, airport)}).not_to raise_error
 	end
 
 	it "should be able to land" do
 		plane.stub(:stormy? => false)
-		expect(lambda {plane.land(airport)}).not_to raise_error
+		fill_sky(sky)
+		expect(lambda {plane.move_plane(airport, sky)}).not_to raise_error
 	end
 
 	it "should not take off if the weather is stormy" do
 		plane.stub(:stormy? => true)
-		expect(lambda {plane.take_off_to(sky)}).to raise_error
+		fill_airport(airport)
+		expect(lambda {plane.move_plane(sky, airport)}).to raise_error
 	end
 
 	it "should not land if the weather is stormy" do
 		plane.stub(:stormy? => true)
-		expect(lambda {plane.land(airport)}).to raise_error
+		fill_sky(sky)
+		expect(lambda {plane.move_plane(airport, sky)}).to raise_error
 	end
+
 end
 
 
@@ -47,21 +53,27 @@ describe Airport do
 	let(:sky) { Sky.new }
 
 	def fill_airport(airport)
-		plane.stub(:stormy? => false)
-		25.times { plane.land(airport) }
+		25.times { airport.planes << plane }
+	end
+
+	def fill_sky(sky)
+		25.times { sky.planes << plane }
 	end
 
 	it "should store planes" do
+		plane.stub(:stormy? => false)
+		fill_sky(sky)
 		expect(airport.plane_count).to eq(0)
-		plane.land(airport)
+		plane.move_plane(airport, sky)
 		expect(airport.plane_count).to eq(1)
 	end
 
 	it "should remove planes from store when they take off" do
+		plane.stub(:stormy? => false)
 		fill_airport(airport)
-		expect(airport.plane_count).to eq(1)
-		plane.take_off_to(sky)
-		expect(airport.plane_count).to eq(0)
+		expect(airport.planes.count).to eq(25)
+		plane.move_plane(sky, airport)
+		expect(airport.planes.count).to eq(24)
 	end
 
 	it "should know when it's full" do 
@@ -71,13 +83,12 @@ describe Airport do
 
 	it "should not allow a plane to land if it is full" do
 		fill_airport(airport)
-		expect(lambda {plane.land(airport)}).to raise_error(RuntimeError)
+		expect(lambda {plane.move_plane(airport, sky)}).to raise_error(RuntimeError)
 	end
 
 	it "should not allow a plane to leave when it's empty" do
-		expect(lambda {plane.take_off_to(sky)}).to raise_error(RuntimeError) if airport.empty
+		expect(lambda {plane.move_plane(sky, airport)}).to raise_error(RuntimeError) if airport.empty
 	end
-
 end
 
 
@@ -88,14 +99,18 @@ describe Sky do
 	let(:airport) { Airport.new }
 
 	def fill_airport(airport)
-		plane.stub(:stormy? => false)
-		25.times { plane.land(airport) }
+		25.times { airport.planes << plane }
+	end
+
+	def fill_sky(sky)
+		25.times { sky.planes << plane }
 	end
 
 	it "should allow planes to be in it" do
+		plane.stub(:stormy? => false)
 		fill_airport(airport)
 		expect(sky.plane_count).to eq(0)
-		plane.take_off_to(sky)
+		plane.move_plane(sky, airport)
 		expect(sky.plane_count).to eq(1)
 	end
 end

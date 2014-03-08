@@ -3,22 +3,18 @@ require_relative "./planeholder"
 require_relative "./airport"
 
 class Plane
+
 	include Weather
 	include Planeholder
 
 	def initialize
 		@flying
 	end
-
-	def take_off_to(sky)
-		raise "Too stormy - plane cannot take off" if stormy?
-		raise "No planes available" if empty
-		remove_plane(plane)
-	end
-
-	def land(airport)
-		raise "Too stormy - plane cannot land" if stormy?
-		raise "Airport is full" if full?
-		planes << plane
+	
+	def move_plane(to, from)
+		raise "Too stormy - plane cannot move plane" if stormy?
+		raise "No planes available" if from.empty
+		from.remove_plane(plane)
+		to.planes << plane
 	end
 end
