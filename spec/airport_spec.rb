@@ -74,6 +74,7 @@ describe Airport do
 		expect(airport.planes.count).to eq(25)
 		plane.move_plane(sky, airport)
 		expect(airport.planes.count).to eq(24)
+		# this isn't working - the plane isn't leaving
 	end
 
 	it "should know when it's full" do 

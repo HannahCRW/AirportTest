@@ -12,7 +12,7 @@ module Planeholder
 		@planes ||= []
 	end
 
-	def plane
+	def plane  # this is where my problem is
 		@plane
 	end
 
